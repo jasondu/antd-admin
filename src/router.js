@@ -1,6 +1,6 @@
 import React, { PropTypes } from 'react'
 import { Router } from 'dva/router'
-import App from './routes/app'
+import App from './routes/app'  // 这是项目的框架结构
 
 const cached = {}
 const registerModel = (app, model) => {
@@ -25,6 +25,7 @@ const Routers = function ({ history, app }) {
         {
           path: 'dashboard',
           getComponent (nextState, cb) {
+            // require.ensure在需要的时候才下载依赖的模块
             require.ensure([], require => {
               registerModel(app, require('./models/dashboard'))
               cb(null, require('./routes/dashboard/'))

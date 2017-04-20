@@ -46,7 +46,7 @@ function Header ({ user, logout, switchSider, siderFold, isNavbar, menuPopoverVi
     </div>
   )
 }
-
+// 入参验证
 Header.propTypes = {
   user: PropTypes.object,
   logout: PropTypes.func,

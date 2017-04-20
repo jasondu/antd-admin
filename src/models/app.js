@@ -16,6 +16,7 @@ export default {
     navOpenKeys: [],
   },
   subscriptions: {
+    // 进入页面时
     setup ({ dispatch }) {
       dispatch({ type: 'queryUser' })
       window.onresize = () => {
@@ -23,12 +24,17 @@ export default {
       }
     },
   },
+  // 异步逻辑
   effects: {
     *queryUser ({
       payload,
     }, { call, put }) {
+      // call: 用于调用异步逻辑，支持 promise 
+      // pul: 用于触发 action
+      // 查询登陆信息
       const data = yield call(getUserInfo, parse(payload))
       if (data.success && data.user) {
+        // 登陆成功
         yield put({
           type: 'queryUserSuccess',
           payload: data.user,
@@ -37,6 +43,7 @@ export default {
           yield put(routerRedux.push('/dashboard'))
         }
       } else {
+        // 登陆状态获取失败，跳到登陆页面
         if (location.pathname !== '/login') {
           let from = location.pathname
           if (location.pathname === '/dashboard') {
@@ -87,6 +94,7 @@ export default {
       })
     },
   },
+  // 同步逻辑
   reducers: {
     queryUserSuccess (state, { payload: user }) {
       return {

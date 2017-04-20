@@ -46,6 +46,7 @@ const App = ({ children, location, dispatch, app }) => {
   }
 
   if (config.openPages && config.openPages.indexOf(location.pathname) > -1) {
+    // 如果是登陆页面时
     return <div>{children}</div>
   }
 
